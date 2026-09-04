@@ -21,19 +21,19 @@ impl Ticket {
         if status != "To-Do" && status != "In Progress" && status != "Done"{
             panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed")
         }
-        else if title.len() <= 0{
+        if title.len() <= 0{
             panic!("Title cannot be empty");
         }
-        else if description.len() <= 0 {
+        if description.len() <= 0 {
             panic!("Description cannot be empty");
         }
-        else if title.len() > 50 {
+        if title.len() > 50 {
             panic!("Title cannot be longer than 50 bytes");
         }
-        else if description.len() > 500 {
+        if description.len() > 500 {
             panic!("Description cannot be longer than 500 bytes")
         }
-        else {
+        {
             Self {
                 title: title,
                 description: description,
