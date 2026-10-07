@@ -2,7 +2,20 @@
 //  When implementing `Display`, you may want to use the `write!` macro from Rust's standard library.
 //  The docs for the `std::fmt` module are a good place to start and look for examples:
 //  https://doc.rust-lang.org/std/fmt/index.html#write
+use std::fmt;
 
+impl fmt::Display for TicketNewError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            TicketNewError::TitleError(message)
+            | TicketNewError::DescriptionError(message) => write!(f, "{message}"),
+        }
+    }
+}
+
+impl std::error::Error for TicketNewError {}
+
+#[derive(Debug)]
 enum TicketNewError {
     TitleError(String),
     DescriptionError(String),
@@ -13,7 +26,16 @@ enum TicketNewError {
 //   When the description is invalid, instead, it should use a default description:
 //   "Description not provided".
 fn easy_ticket(title: String, description: String, status: Status) -> Ticket {
-    todo!()
+    let description: String = if description.is_empty() || description.len() > 500 {
+        "Description not provided".to_string()
+    } else {
+        description
+    };
+
+    match Ticket::new(title, description, status) {
+        Ok(ticket) => ticket,
+        Err(error) => panic!("{}", error),
+    }
 }
 
 #[derive(Debug, PartialEq, Clone)]
