@@ -2,8 +2,15 @@
 //   When the description is invalid, instead, it should use a default description:
 //   "Description not provided".
 fn easy_ticket(title: String, description: String, status: Status) -> Ticket {
-    todo!()
+    let description: String = if description.is_empty() || description.len() > 500 {
+        String::from("Description not provided")
+    } else {
+        description
+    };
+
+    Ticket::new(title, description, status).unwrap()
 }
+
 
 #[derive(Debug, PartialEq, Clone)]
 struct Ticket {
