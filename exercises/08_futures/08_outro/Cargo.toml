@@ -5,3 +5,10 @@ edition = "2021"
 
 [dependencies]
 tokio = { version = "1", features = ["full"] }
+axum = "0.8"
+serde = { version = "1", features = ["derive"] }
+ticket_fields = { path = "../../../helpers/ticket_fields" }
+
+[dev-dependencies]
+serde_json = "1"
+tower = { version = "0.5", features = ["util"] }

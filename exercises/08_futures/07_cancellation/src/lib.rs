@@ -46,6 +46,7 @@ mod tests {
 
         let buffered = handle.await.unwrap();
         let buffered = std::str::from_utf8(&buffered).unwrap();
-        assert_eq!(buffered, "");
+        // The bytes read before each timeout remain in the buffer.
+        assert_eq!(buffered, "hefrthta");
     }
 }
